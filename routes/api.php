@@ -13,3 +13,6 @@ Route::get('/user', function (Request $request) {
 Route::apiResource('times', TimeController::class);
 Route::apiResource('campeonatos', CampeonatoController::class);
 Route::apiResource('partidas', PartidaController::class);
+
+Route::post('/campeonatos/{id}/gerar-partidas', [CampeonatoController::class, 'gerarPartidas']);
+

@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreignId('time1_id')->constrained('times');
             $table->foreignId('time2_id')->constrained('times');
 
-            $table->foreignId('vencedor_id')->constrained('times');
-            $table->foreignId('perdedor_id')->constrained('times');
+            $table->foreignId('vencedor_id')->nullable()->constrained('times');
+            $table->foreignId('perdedor_id')->nullable()->constrained('times');
 
             $table->timestamps();
         });
