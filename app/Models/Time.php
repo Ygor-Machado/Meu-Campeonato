@@ -11,5 +11,6 @@ class Time extends Model
 
     protected $fillable = [
         'nome',
+        'campeonato_id'
     ];
 }

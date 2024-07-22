@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('partidas', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('gols_time_1');
-            $table->integer('gols_time_2');
+            $table->integer('gols_time1');
+            $table->integer('gols_time2');
 
             $table->foreignId('campeonato_id')->constrained('campeonatos');
-            $table->foreignId('time_1_id')->constrained('times');
-            $table->foreignId('time_2_id')->constrained('times');
-            $table->foreignId('fase_id')->constrained('fases');
+            $table->foreignId('time1_id')->constrained('times');
+            $table->foreignId('time2_id')->constrained('times');
+
             $table->foreignId('vencedor_id')->constrained('times');
             $table->foreignId('perdedor_id')->constrained('times');
 
