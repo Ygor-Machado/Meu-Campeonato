@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CampeonatoController;
-use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\TimeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +11,8 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('times', TimeController::class);
 Route::apiResource('campeonatos', CampeonatoController::class);
-Route::apiResource('partidas', PartidaController::class);
 
-Route::post('/campeonatos/{id}/gerar-partidas', [CampeonatoController::class, 'gerarPartidas']);
+Route::get('/campeonatos/{campeonatoId}/times', [TimeController::class, 'timesCampeonatos']);
 Route::post('/campeonatos/{id}/simular-partidas', [CampeonatoController::class, 'simularPartidas']);
+Route::get('/campeonatos/{id}/resultado', [CampeonatoController::class, 'mostrarResultado']);
+

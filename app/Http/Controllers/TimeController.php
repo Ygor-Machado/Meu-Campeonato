@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campeonato;
 use App\Models\Time;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,12 @@ class TimeController extends Controller
      */
     public function store(Request $request)
     {
-        $times = $this->time->create($request->all());
+        $times = $request->all();
+
+        // Inserir vários times de uma vez no insomnia
+        foreach ($times as $timeData) {
+            $this->time->create($timeData);
+        }
 
         return response()->json($times);
     }
@@ -66,5 +72,14 @@ class TimeController extends Controller
         $time->delete();
 
         return response()->json(['message' => 'Time deletado com sucesso!']);
+    }
+
+    public function timesCampeonatos($id)
+    {
+        $campeonato = Campeonato::with('times')->findOrFail($id);
+
+        $times = $campeonato->times;
+
+        return response()->json($times);
     }
 }
