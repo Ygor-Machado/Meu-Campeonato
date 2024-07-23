@@ -94,4 +94,44 @@ class CampeonatoController extends Controller
 
         return response()->json($campeonato->partidas, 201);
     }
+
+    public function simularPartidas($id)
+    {
+        $campeonato = Campeonato::findOrFail($id);
+        $partidas = $campeonato->partidas;
+
+        foreach ($partidas as $partida) {
+            $partida->gols_time1 = rand(0, 5);
+            $partida->gols_time2 = rand(0, 5);
+
+            $this->calcularResultado($partida);
+        }
+
+        return response()->json($partidas, 200);
+    }
+
+    private function calcularResultado(Partida $partida)
+    {
+        if ($partida->gols_time1 > $partida->gols_time2) {
+            $partida->vencedor_id = $partida->time1_id;
+            $partida->perdedor_id = $partida->time2_id;
+        } elseif ($partida->gols_time2 > $partida->gols_time1) {
+            $partida->vencedor_id = $partida->time2_id;
+            $partida->perdedor_id = $partida->time1_id;
+        } else {
+            // Critério de desempate
+            $pontos_time1 = $partida->gols_time1 - $partida->gols_time2;
+            $pontos_time2 = $partida->gols_time2 - $partida->gols_time1;
+
+            if ($pontos_time1 > $pontos_time2) {
+                $partida->vencedor_id = $partida->time1_id;
+                $partida->perdedor_id = $partida->time2_id;
+            } else {
+                $partida->vencedor_id = $partida->time2_id;
+                $partida->perdedor_id = $partida->time1_id;
+            }
+        }
+
+        $partida->save();
+    }
 }

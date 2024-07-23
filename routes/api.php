@@ -15,4 +15,4 @@ Route::apiResource('campeonatos', CampeonatoController::class);
 Route::apiResource('partidas', PartidaController::class);
 
 Route::post('/campeonatos/{id}/gerar-partidas', [CampeonatoController::class, 'gerarPartidas']);
-
+Route::post('/campeonatos/{id}/simular-partidas', [CampeonatoController::class, 'simularPartidas']);
